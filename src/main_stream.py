@@ -17,7 +17,7 @@ def parse_groq_stream(stream):
 # streamlit page configuration
 st.set_page_config(
     page_title="llama-3.1 Chatbot",
-    page_icon="🦙",
+    page_icon="🤖",
     layout="centered",
 )
 
