@@ -1,6 +1,8 @@
 import os
 import json
 
+from dotenv import dotenv_values
+
 import streamlit as st
 from groq import Groq
 
@@ -19,8 +21,10 @@ st.set_page_config(
     layout="centered",
 )
 
-working_dir = os.path.dirname(os.path.abspath(__file__))
-config_data = json.load(open(f"{working_dir}/config.json"))
+
+config_data = dotenv_values(".env")
+# working_dir = os.path.dirname(os.path.abspath(__file__))
+# config_data = json.load(open(f"{working_dir}/config.json"))
 
 GROQ_API_KEY = config_data["GROQ_API_KEY"]
 
@@ -75,7 +79,6 @@ if user_prompt:
             You are a world-leading expert on DSA.
             This includes but is not limited to: all the leetcode problems.
             You can prepare anyone for tech interviews in top tech companies.
-            And wrap numbers in proper markdown formatting (ex: `123`).
             Provide the answers in a easier way.
             Prefer dry-run with example while explaining any concept.
             Always identify the common mistakes and how that could be resolved while providing sollution hints.
