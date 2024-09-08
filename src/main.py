@@ -16,7 +16,7 @@ def parse_groq_stream(stream):
 
 # streamlit page configuration
 st.set_page_config(
-    page_title="My Coding Buddy",
+    page_title="The Tech Buddy 🧑‍💻",
     page_icon="🤖",
     layout="centered",
 )
