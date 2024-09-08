@@ -23,14 +23,18 @@ st.set_page_config(
 
 
 try:
-    config_data = dotenv_values(".env")
-    GROQ_API_KEY = config_data["GROQ_API_KEY"]
+    secrets = dotenv_values(".env")  # for dev env
 except:
-    GROQ_API_KEY = st.secrets["GROQ_API_KEY"]
+    secrets = st.secrets  # for streamlit deployment
 
-
+GROQ_API_KEY = secrets["GROQ_API_KEY"]
 # save the api_key to environment variable
 os.environ["GROQ_API_KEY"] = GROQ_API_KEY
+
+INITIAL_RESPONSE = secrets["INITIAL_RESPONSE"]
+INITIAL_MSG = secrets["INITIAL_MSG"]
+CHAT_CONTEXT = secrets["CHAT_CONTEXT"]
+
 
 client = Groq()
 
@@ -39,17 +43,7 @@ if "chat_history" not in st.session_state:
     # print("message not in chat session")
     st.session_state.chat_history = [
         {"role": "assistant",
-         "content":
-         """
-                    I'm your DSA buddy, here to help you ace those tech interviews and conquer coding challenges! 
-                    Let's get started! What specific area would you like to explore today? 
-                    Do you want to: 
-                    - Discuss a particular problem or algorithm? 
-                    - Practice with code examples?
-                    - Review common interview questions?
-                    - Optimize your coding workflow?
-                    Type away, and let's dive into the world of DSA together!
-                    """
+         "content": INITIAL_RESPONSE
          },
     ]
 
@@ -76,18 +70,9 @@ if user_prompt:
 
     # get a response from the LLM
     messages = [
-        {"role": "system", "content": """
-            You are a world-leading expert on DSA.
-            This includes but is not limited to: all the leetcode problems.
-            You can prepare anyone for tech interviews in top tech companies.
-            Provide the answers in a easier way.
-            Prefer dry-run with example while explaining any concept.
-            Always identify the common mistakes and how that could be resolved while providing sollution hints.
-            Try be a cheerfull, excited and motivated assistant.
-            Only answer the question - do not return something dumb like "[YourNextQuestion]"
-         """
+        {"role": "system", "content": CHAT_CONTEXT
          },
-        {"role": "assistant", "content": "Hey there! I can explain everything in DSA to a five year old, Lets help you out!"},
+        {"role": "assistant", "content": INITIAL_MSG},
         *st.session_state.chat_history
     ]
 
