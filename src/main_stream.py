@@ -22,11 +22,12 @@ st.set_page_config(
 )
 
 
-config_data = dotenv_values(".env")
-# working_dir = os.path.dirname(os.path.abspath(__file__))
-# config_data = json.load(open(f"{working_dir}/config.json"))
+try:
+    config_data = dotenv_values(".env")
+    GROQ_API_KEY = config_data["GROQ_API_KEY"]
+except:
+    GROQ_API_KEY = st.secrets["GROQ_API_KEY"]
 
-GROQ_API_KEY = config_data["GROQ_API_KEY"]
 
 # save the api_key to environment variable
 os.environ["GROQ_API_KEY"] = GROQ_API_KEY
