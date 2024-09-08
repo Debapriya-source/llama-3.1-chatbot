@@ -1,4 +1,4 @@
-# llama-3.1-chatbot powered by Groq hosted on Streamlit
+# 🦙Llama-3.1-chatbot🤖 powered by Groq hosted on Streamlit
 
 In this tutorial, we'll build and deploy a personalised AI-powered chat application using Streamlit and the latest AI model llama-3.1-8b-instant. We'll use Groq for faster inference. Also we are going to **deploy it for free!**
 We'll take you through the code, explaining each section and providing useful tips for customization.
